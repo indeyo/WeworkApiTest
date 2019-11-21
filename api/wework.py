@@ -25,7 +25,7 @@ class WeWork:
         param = {'corpid': cls.corpid, 'corpsecret': cls.contact_secret}
         if cls.contact_token == None:
             resp = request('GET', url, params=param).json()
-            print(resp)
+            # print(resp)
             cls.contact_token = resp['access_token']
         return cls.contact_token
 
@@ -35,6 +35,6 @@ class WeWork:
         param = {'corpid': cls.corpid, 'corpsecret': cls.eat_secret}
         if cls.eat_token == None:
             resp = request('GET', url, params=param).json()
-            print(resp)
+            # print(resp)
             cls.eat_token = resp['access_token']
         return cls.eat_token

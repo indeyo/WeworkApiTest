@@ -8,15 +8,15 @@
 @Version : 
 @Remark  :
 """
-
+import time
+import calendar
+import logging
 from requests import request
 
 from api.base_api import BaseApi
 from api.wework import WeWork
 
-import time
-import calendar
-
+logging.basicConfig(level=logging.INFO)
 
 class Department(BaseApi):
 
@@ -24,7 +24,7 @@ class Department(BaseApi):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/department/list'
         param = {'access_token': WeWork.get_contact_token()}
         resp = request('GET', url, params=param).json()
-        print(resp)
+        logging.info('获取部门列表接口返回：%s' % resp)
         return resp
 
     def create_department(self):
@@ -37,8 +37,8 @@ class Department(BaseApi):
             "parentid": 1,
             "order": 9999
         }
-        resp = request('POST', url, params=param, json=json, headers=headers, proxies=self.proxies, verify=False).json()
-        print(resp)
+        resp = request('POST', url, params=param, json=json, headers=headers, verify=False).json()
+        logging.info('创建部门接口返回：%s' % resp)
         return resp
 
     def update_department(self):
@@ -52,8 +52,8 @@ class Department(BaseApi):
             "parentid": 1,
             "order": 9999
         }
-        resp = request('POST', url, params=param, json=json, headers=headers, proxies=self.proxies, verify=False).json()
-        print(resp)
+        resp = request('POST', url, params=param, json=json, headers=headers, verify=False).json()
+        logging.info('更新部门接口返回：%s' % resp)
         return resp
 
     def delete_department(self):
@@ -63,6 +63,6 @@ class Department(BaseApi):
             "id": 3
         }
         headers = {'content-type': 'charset=utf-8'}
-        resp = request('GET', url, params=param, headers=headers, proxies=self.proxies, verify=False).json()
-        print(resp)
+        resp = request('GET', url, params=param, headers=headers, verify=False).json()
+        logging.info('删除部门接口返回：%s' % resp)
         return resp

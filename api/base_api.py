@@ -9,6 +9,8 @@
 @Remark  :
 """
 
+import logging
+
 class BaseApi:
 
     proxies = {

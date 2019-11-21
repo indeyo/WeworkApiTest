@@ -8,10 +8,13 @@
 @Version : 
 @Remark  :
 """
-from requests import post,request
+from requests import request
 from api.wework import WeWork
 from api.base_api import BaseApi
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 class Message(BaseApi):
 
@@ -30,6 +33,6 @@ class Message(BaseApi):
                          }
                  }
         # repr = post(url, json=json, headers=headers, params=param, verify=False, proxies=proxies).json()
-        repr = request('POST', url, json=json, headers=headers, params=param, verify=False, proxies=self.proxies).json()
-        print(repr)
-        return repr
+        resp = request('POST', url, json=json, headers=headers, params=param, verify=False).json()
+        logging.info('发送消息接口返回：%s' % resp)
+        return resp
