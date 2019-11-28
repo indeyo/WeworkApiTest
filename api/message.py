@@ -8,7 +8,6 @@
 @Version : 
 @Remark  :
 """
-from requests import request
 from api.wework import WeWork
 from api.base_api import BaseApi
 
@@ -32,7 +31,5 @@ class Message(BaseApi):
                      "content": "中午不知道吃啥，吃点啥帮你决定叭！"
                          }
                  }
-        # repr = post(url, json=json, headers=headers, params=param, verify=False, proxies=proxies).json()
-        resp = request('POST', url, json=json, headers=headers, params=param, verify=False).json()
-        logging.info('发送消息接口返回：%s' % resp)
+        resp = super().request_api('POST', url, json=json, headers=headers, params=param)
         return resp

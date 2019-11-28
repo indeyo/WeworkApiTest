@@ -23,21 +23,21 @@ class Department(BaseApi):
     def get_department_list(self):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/department/list'
         param = {'access_token': WeWork.get_contact_token()}
-        resp = super().request_api('GET', url, param=param)
+        resp = super().request_api('GET', url, params=param)
         return resp
 
-    def create_department(self):
+    def create_department(self, depart_name=None, parentid=1, order=999):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/department/create'
         param = {'access_token': WeWork.get_contact_token()}
         headers = {'content-type': 'charset=utf-8'}
-        depart_name = "子部门" + str(calendar.timegm(time.gmtime()))
+        if depart_name == None:
+            depart_name = "子部门" + str(calendar.timegm(time.gmtime()))
         json = {
             "name": depart_name,
-            "parentid": 1,
-            "order": 9999
+            "parentid": parentid,
+            "order": order
         }
-        resp = request('POST', url, params=param, json=json, headers=headers, verify=False).json()
-        logging.info('创建部门接口返回：%s' % resp)
+        resp = super().request_api('POST', url, params=param, json=json, headers=headers)
         return resp
 
     def update_department(self):
@@ -51,8 +51,7 @@ class Department(BaseApi):
             "parentid": 1,
             "order": 9999
         }
-        resp = request('POST', url, params=param, json=json, headers=headers, verify=False).json()
-        logging.info('更新部门接口返回：%s' % resp)
+        resp = super().request_api('POST', url, params=param, json=json, headers=headers)
         return resp
 
     def delete_department(self):
@@ -62,6 +61,5 @@ class Department(BaseApi):
             "id": 3
         }
         headers = {'content-type': 'charset=utf-8'}
-        resp = request('GET', url, params=param, headers=headers, verify=False).json()
-        logging.info('删除部门接口返回：%s' % resp)
+        resp = super().request_api('GET', url, params=param, headers=headers)
         return resp
