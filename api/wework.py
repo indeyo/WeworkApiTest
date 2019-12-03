@@ -9,10 +9,7 @@
 @Remark  :
 """
 
-from requests import request
-
 from api.base_api import BaseApi
-
 
 class WeWork(BaseApi):
 
@@ -26,7 +23,7 @@ class WeWork(BaseApi):
     def get_token(self, secret, token):
         param = {'corpid': self.corpid, 'corpsecret': secret}
         if token == None:
-            resp = super().request_api(self, 'GET', self.url, params=param)
+            resp = super().request_api(self, 'GET', self.url, params=param).json()
             token = resp['access_token']
         return token
 

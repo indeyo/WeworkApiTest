@@ -23,7 +23,7 @@ class Department(BaseApi):
     def get_department_list(self):
         url = 'https://qyapi.weixin.qq.com/cgi-bin/department/list'
         param = {'access_token': WeWork.get_contact_token()}
-        resp = super().request_api('GET', url, params=param)
+        resp = super().request_api('GET', url, params=param).json()
         return resp
 
     def create_department(self, depart_name=None, parentid=1, order=999):

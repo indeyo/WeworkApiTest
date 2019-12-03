@@ -12,6 +12,8 @@
 from requests import request
 import logging
 
+from utils.Utils import Utils
+
 logging.basicConfig(level=logging.INFO)
 
 class BaseApi:
@@ -21,7 +23,12 @@ class BaseApi:
         'https': 'http://192.168.1.105:8888'
     }
 
+    def format(self, json_data):
+        print(Utils.format(json_data))
+
     def request_api(self, method, url, params=None, json=None, headers=None, verify=False):
-        resp = request(method, url, params=params, json=json, headers=headers, verify=verify).json()
-        logging.info("接口返回 %s" % resp)
-        return  resp
+        resp = request(method, url, params=params, json=json, headers=headers, verify=verify)
+        resp_json = resp.json()
+        logging.info("接口返回 %s" % resp.json())
+        format(resp_json)
+        return resp

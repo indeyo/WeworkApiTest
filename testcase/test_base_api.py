@@ -16,7 +16,8 @@ class TestBaseApi:
 
     def test_request_api_get(self):
         resp = self.base_api.request_api('GET', 'http://www.baidu.com')
-        assert resp.status_code == 200
+        # assert resp.status_code == 200
 
-    def test_request_api_post(self):
-        pass
+    def test_format(self):
+        json = {"a" : 3, "b" : 4}
+        self.base_api.format(json)
