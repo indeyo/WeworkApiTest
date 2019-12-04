@@ -18,6 +18,6 @@ class TestBaseApi:
         resp = self.base_api.request_api('GET', 'http://www.baidu.com')
         # assert resp.status_code == 200
 
-    def test_format(self):
+    def test_json_format(self):
         json = {"a" : 3, "b" : 4}
-        self.base_api.format(json)
+        self.base_api.json_format(json)

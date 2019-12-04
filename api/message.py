@@ -17,12 +17,11 @@ logging.basicConfig(level=logging.INFO)
 
 class Message(BaseApi):
 
-    def send_text_massage(self):
+    send_url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send'
+    headers = {'content-type': 'application/json; charset=utf-8'}
+    param = {'access_token': WeWork.get_eat_token()}
 
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send'
-        # headers = {'content-type': 'application/json; charset=utf-8'}
-        headers = {'content-type': 'charset=utf-8'}
-        param = {'access_token': WeWork.get_eat_token()}
+    def send_text_massage(self):
         json = {
                  "touser": "|".join(['LinXiaoLing']),
                  "msgtype": "text",
@@ -31,5 +30,6 @@ class Message(BaseApi):
                      "content": "中午不知道吃啥，吃点啥帮你决定叭！"
                          }
                  }
-        resp = super().request_api('POST', url, json=json, headers=headers, params=param)
+        resp = super().request_api('POST', self.send_url, json=json, headers=self.headers, params=self.param).json()
+        super().json_format(resp)
         return resp
