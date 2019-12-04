@@ -22,15 +22,14 @@ class TestDepartment:
     def test_create_department(self):
         repr = self.department.create_department()
         assert repr['errcode'] == 0
-        assert repr['id'] != ""
 
     def test_update_department(self):
-        repr = self.department.update_department()
+        repr = self.department.update_department(5)
         assert repr['errcode'] == 0
 
     def test_delete_department(self):
         """TODO:有前置条件，每次执行前需要有存在的部门id"""
-        repr = self.department.delete_department()
+        repr = self.department.delete_department(4)
         assert repr['errcode'] == 0
 
 

@@ -21,13 +21,13 @@ class Message(BaseApi):
     headers = {'content-type': 'application/json; charset=utf-8'}
     param = {'access_token': WeWork.get_eat_token()}
 
-    def send_text_massage(self):
+    def send_text_massage(self, touser: list, agentid=1000005, content=None):
         json = {
-                 "touser": "|".join(['LinXiaoLing']),
+                 "touser": "|".join(touser),
                  "msgtype": "text",
-                 "agentid": 1000005,
+                 "agentid": agentid,
                  "text": {
-                     "content": "中午不知道吃啥，吃点啥帮你决定叭！"
+                     "content": content
                          }
                  }
         resp = super().request_api('POST', self.send_url, json=json, headers=self.headers, params=self.param).json()

@@ -15,5 +15,6 @@ class TestMessage:
 
     def test_send_message(self):
         msg = Message()
-        repr = msg.send_text_massage()
+        content = "中午不知道吃啥，吃点啥帮你决定叭！"
+        repr = msg.send_text_massage(['LinXiaoLing'], 1000005, content)
         assert repr['errcode'] == 0

@@ -43,22 +43,23 @@ class Department(BaseApi):
         super().json_format(resp)
         return resp
 
-    def update_department(self):
-        depart_name = "改个名" + str(calendar.timegm(time.gmtime()))
+    def update_department(self, depart_id, update_name=None, update_parentid=1, update_order=9999):
+        if update_name == None:
+            update_name = "改个名" + str(calendar.timegm(time.gmtime()))
         json = {
-            "id": 5,
-            "name": depart_name,
-            "parentid": 1,
-            "order": 9999
+            "id": depart_id,
+            "name": update_name,
+            "parentid": update_parentid,
+            "order": update_order
         }
         resp = super().request_api('POST', self.update_url, params=self.param, json=json, headers=self.headers).json()
         super().json_format(resp)
         return resp
 
-    def delete_department(self):
+    def delete_department(self, depart_id):
         param = {
             'access_token': WeWork.get_contact_token(),
-            "id": 3
+            "id": depart_id
         }
         resp = super().request_api('GET', self.delete_url, params=param, headers=self.headers).json()
         super().json_format(resp)
