@@ -27,13 +27,11 @@ class Department(BaseApi):
     headers = {'content-type': 'charset=utf-8'}
 
     def get_department_list(self):
-        resp = super().request_api('GET', self.list_url, params=self.param).json()
+        resp = super().request_api('GET', self.list_url, params=self.param, proxies=True).json()
         super().json_format(resp)
         return resp
 
-    def create_department(self, depart_name=None, parentid=1, order=999):
-        if depart_name == None:
-            depart_name = "子部门" + str(calendar.timegm(time.gmtime()))
+    def create_department(self, depart_name : str, parentid, order):
         json = {
             "name": depart_name,
             "parentid": parentid,

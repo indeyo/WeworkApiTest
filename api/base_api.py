@@ -26,8 +26,11 @@ class BaseApi:
     def json_format(self, json_data):
         print(Utils.format(json_data))
 
-    def request_api(self, method, url, params=None, json=None, headers=None, verify=False):
-        resp = request(method, url, params=params, json=json, headers=headers, verify=verify)
+    def request_api(self, method, url, params=None, json=None, headers=None, verify=False, proxies=False):
+        if proxies == False:
+            resp = request(method, url, params=params, json=json, headers=headers, verify=verify)
+        else:
+            resp = request(method, url, params=params, json=json, headers=headers, verify=verify, proxies=self.proxies)
         resp_json = resp.json()
         logging.info("接口返回 %s" % resp.json())
         # self.json_format(resp_json)    #  报错：TypeError: json_format() missing 1 required positional argument: 'json_data'

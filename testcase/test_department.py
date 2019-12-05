@@ -8,10 +8,18 @@
 @Version : 
 @Remark  :
 """
+import time
+import calendar
+
+from jsonpath import jsonpath
 
 from api.department import Department
 
 class TestDepartment:
+
+    # def setup(self):
+    #     self.department = Department()
+    #     self.list = self.department.get_department_list()
 
     department = Department()
 
@@ -20,8 +28,13 @@ class TestDepartment:
         assert list['errcode'] == 0
 
     def test_create_department(self):
-        repr = self.department.create_department()
+        depart_name = "子部门" + str(calendar.timegm(time.gmtime()))
+        repr = self.department.create_department(depart_name, 1, 999)
+        list = self.department.get_department_list()
+        # print(jsonpath(list, "$..department[?(@.id==%s)]" % repr['id'])[0]['name'])
+        # print(jsonpath(list, "$..department[?(@.id==%s)]" % repr['id']))
         assert repr['errcode'] == 0
+        assert jsonpath(list, "$..department[?(@.id==%s)]" % repr['id'])[0]['name'] == depart_name
 
     def test_update_department(self):
         repr = self.department.update_department(5)
